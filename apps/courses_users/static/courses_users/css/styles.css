@@ -1,0 +1,12 @@
+table{
+	border-collapse: collapse;
+	width: 400px;
+}
+#wrapper{
+	margin: 40px;
+}
+
+tr,td,th{
+	border: 2px solid black;
+}
+

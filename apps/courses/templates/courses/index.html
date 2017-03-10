@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Courses</title>
+  <link rel="stylesheet" href="{% static 'courses/css/styles.css' %}">
+</head>
+<body>
+<div id="wrapper">
+  	<form action="{% url 'course:logout' %}" class="out" method="post" >
+  		<strong>Welcome, {{request.session.name}}</strong>
+  		{% csrf_token %}
+		<input type="submit" name="logout" value="Log out" class="btn_logout">
+  	</form>
+<form action="{% url 'course:add' %}" method="POST">
+{% csrf_token %}
+<h1>Add a new course</h1>
+<p>Name: <input type="text" name="name" class="txt_name" required></p>
+<p>Description: </p><textarea cols="47" rows="7" name="description"></textarea><br>
+<input type="submit" name="submit" value="Add" class="btn_add">
+</form>
+<div>
+<h3>Courses</h3>	 
+	<table>
+		<tr class="head">
+			<th>Course Name</th>
+			<th>Description</th>
+			<th>Date Added</th>
+			<th>Actions</th>
+		</tr>
+		{% for course in courses %}
+		<tr>
+			<td>{{course.name}}</td>
+			<td>{{course.description}}</td>
+			<td>{{course.created_at}}</td>
+			<td class="center">
+			<form action="{% url 'course:course' id=course.id %}" method="POST">
+			{% csrf_token %}
+			<input type="submit" name="submit" value="remove">
+			</form>
+			</td>
+		{% endfor %}
+		</tr>
+	</table>
+</div>
+<p><a href="/courses/users_courses/">Add Courses to Users</a></p>
+</div>
+</body>
+</html>
